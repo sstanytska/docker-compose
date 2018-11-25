@@ -1,0 +1,78 @@
+version: "3.7"
+volumes:
+  Shared:
+
+services:
+  website:
+    image: "hello-world"
+    labels:
+      Name: "Hello-world"
+      Env: "Dev"
+      Created_by: "Farruch"
+    ports:
+      - "80:80/tcp"
+    volumes:
+      - "Shared:/Shared"
+
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: "on-failure"
+      placement:
+        constraints:
+          - node.role == worker
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "50M"
+
+
+
+  db:
+    image: "hello-world"
+    labels:
+      Name: "db"
+      Env: "Dev"
+      Created_by: "Farruch"
+    ports:
+      - "3606:3606/tcp"
+    volumes:
+      - "Shared:/Shared"
+
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: "on-failure"
+      placement:
+        constraints:
+          - node.role == worker
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "50M"
+
+
+
+
+  lb:
+    image: "nginx"
+    labels:
+      Name: "lb"
+      Env: "Dev"
+      Created_by: "Farruch"
+    ports:
+      - "8080:8080/tcp"
+    volumes:
+      - "Shared:/Shared"
+
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: "on-failure"
+      placement:
+        constraints:
+          - node.role == worker
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: "50M"
