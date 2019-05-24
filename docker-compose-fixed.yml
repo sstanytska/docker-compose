@@ -8,7 +8,7 @@ services:
     labels:
       Name: "Hello-world"
       Env: "Dev"
-      Created_by: "Farruch"
+      Created_by: "StSofiia"
     ports:
       - "80:80/tcp"
     volumes:
@@ -33,14 +33,14 @@ services:
     labels:
       Name: "db"
       Env: "Dev"
-      Created_by: "Farruch"
+      Created_by: "StSofiia"
     ports:
       - "3606:3606/tcp"
     volumes:
       - "Shared:/Shared"
 
     deploy:
-      replicas: 5
+      replicas: 3
       restart_policy:
         condition: "on-failure"
       placement:
@@ -59,7 +59,7 @@ services:
     labels:
       Name: "lb"
       Env: "Dev"
-      Created_by: "Farruch"
+      Created_by: "StSofiia"
     ports:
       - "8080:8080/tcp"
     volumes:
